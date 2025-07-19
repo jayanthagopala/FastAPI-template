@@ -54,6 +54,7 @@ jobs:
   docker:
     needs: test
     runs-on: ubuntu-latest
+    if: ${{ secrets.DOCKER_USERNAME != '' && secrets.DOCKER_PASSWORD != '' }}
     steps:
     - uses: actions/checkout@v4
 
@@ -86,6 +87,7 @@ jobs:
   release:
     needs: [test, build]
     runs-on: ubuntu-latest
+    if: always() && needs.test.result == 'success' && needs.build.result == 'success'
     steps:
     - uses: actions/checkout@v4
 
