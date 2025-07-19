@@ -1,10 +1,15 @@
 # FastAPI Production Template 🚀
 
+[![CI](https://github.com/jayanthagopala/FastAPI-template/actions/workflows/ci.yml/badge.svg)](https://github.com/jayanthagopala/FastAPI-template/actions/workflows/ci.yml)
+[![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+
 A production-ready FastAPI project template with modern Python development practices. Use this template to quickly bootstrap new FastAPI projects with all the essential components already configured.
 
 ## 🎯 Template Overview
 
-This template provides a solid foundation for building scalable FastAPI applications with industry best practices built-in. Simply clone, customize, and start building your API. 
+This template provides a solid foundation for building scalable FastAPI applications with industry best practices built-in. Simply clone, customize, and start building your API.
 
 ## ✨ What's Included
 
@@ -43,7 +48,7 @@ This template provides a solid foundation for building scalable FastAPI applicat
 
 ### 📈 **Code Quality & Standards**
 - **Black** code formatting
-- **isort** import sorting  
+- **isort** import sorting
 - **Ruff/Flake8** linting
 - **mypy** static type checking
 - **bandit** security linting
@@ -173,21 +178,67 @@ uv run pytest --cov=app
 uv run black .
 uv run ruff check .
 uv run mypy .
+
+# Security scanning
+uv run bandit -r app/
+
+# Install pre-commit hooks
+uv run pre-commit install
+
+# Run all pre-commit hooks
+uv run pre-commit run --all-files
 ```
+
+## 🚀 **CI/CD Pipeline**
+
+This template includes a comprehensive GitHub Actions CI/CD pipeline:
+
+### Continuous Integration
+- **Multi-Python Testing**: Tests run on Python 3.12 and 3.13
+- **Code Quality**: Black formatting, Ruff linting, MyPy type checking
+- **Security Scanning**: Bandit security analysis
+- **Coverage Reporting**: Automatic coverage reports with Codecov integration
+- **Pre-commit Hooks**: Automated code quality checks on every commit
+
+### Continuous Deployment
+- **Docker Build**: Automatic Docker image building and pushing
+- **Release Automation**: Automatic GitHub releases with artifacts
+- **Dependency Updates**: Weekly automated dependency update PRs
+
+### Workflows Included
+- `ci.yml` - Main CI pipeline (runs on push/PR)
+- `release.yml` - Release pipeline (runs on tags)
+- `dependency-update.yml` - Weekly dependency updates
 
 ## 🚀 **Deployment**
 
 ### Docker Production Build
 ```bash
+# Build the image
 docker build -t your-app-name .
+
+# Run the container
 docker run -p 8000:8000 your-app-name
+```
+
+### Docker Compose (Development)
+```bash
+# Start all services (app + database)
+docker-compose up -d
+
+# View logs
+docker-compose logs -f
+
+# Stop services
+docker-compose down
 ```
 
 ### Environment Variables
 Copy `.env.example` to `.env` and configure:
-- `DATABASE_URL`: Your PostgreSQL connection string
-- `SECRET_KEY`: JWT secret key
 - `ENVIRONMENT`: `development`, `staging`, or `production`
+- `DEBUG`: `true` for development, `false` for production
+- `PROJECT_NAME`: Your project name
+- `API_V1_STR`: API version prefix (default: `/api/v1`)
 
 ## 📄 **License**
 
